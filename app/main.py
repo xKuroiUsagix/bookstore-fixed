@@ -1,9 +1,8 @@
 import uvicorn
-from fastapi import FastAPI, Depends
+from fastapi import FastAPI
 
 from database import Base, engine
 
-from auth.dependencies import get_current_user
 from auth.routers.user import router as user_router
 from auth.routers.authentication import router as auth_router
 from author.router import router as author_router
