@@ -22,7 +22,10 @@ class BookService:
             raise BookNotFoundError
         return book
 
-    def create(self, db: Session, book_data: BookCreateRequest) -> Book:
+    def create(self, db: Session, book_data: BookCreateRequest, current_user: User) -> Book:
+        if book_data.author_id != current_user.author.id and current_user.role != ROLE_CHOICES.ADMIN:
+            raise PermissionsError
+        
         book = Book(**book_data.model_dump())
 
         try:

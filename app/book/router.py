@@ -18,10 +18,11 @@ router = APIRouter(prefix='/books')
 @router.post('', response_model=BookResponse, status_code=status.HTTP_201_CREATED)
 def create_book(
     book_data: BookCreateRequest, 
-    db: Session = Depends(get_db), 
+    db: Session = Depends(get_db),
+    current_user: User = Depends(get_current_user),
     _: bool = Depends(IsAdminOrAuthor())
 ):
-    return book_service.create(db, book_data)
+    return book_service.create(db, book_data, current_user)
 
 
 @router.get('', response_model=List[BookResponse])
