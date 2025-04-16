@@ -7,3 +7,6 @@ class AuthorCreateRequest(BaseModel):
 
 class AuthorResponse(AuthorCreateRequest):
     id: int
+
+class AuthorUpdateRequest(BaseModel):
+    bio: str | None = None

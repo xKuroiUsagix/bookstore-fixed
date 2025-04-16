@@ -16,7 +16,7 @@ app = FastAPI()
 
 app.include_router(user_router, tags=['Users'])
 app.include_router(auth_router, tags=['Auth'])
-app.include_router(author_router, dependencies=[Depends(get_current_user)], tags=['Authors'])
+app.include_router(author_router, tags=['Authors'])
 app.include_router(book_router, tags=['Books'])
 
 
