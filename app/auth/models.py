@@ -1,5 +1,7 @@
-from sqlalchemy import Integer, String, Column
+from sqlalchemy import Integer, String, Column, ForeignKey
 from sqlalchemy.orm import relationship
+
+from author.models import Author
 
 from database import Base
 
@@ -12,7 +14,8 @@ class User(Base):
     id = Column(Integer, primary_key=True)
     username = Column(String(128), nullable=False, unique=True)
     email = Column(String(256), nullable=False, unique=True)
-    password = Column(String(64), nullable=False)
+    password = Column(String, nullable=False)
     role = Column(String, nullable=False, default=ROLE_CHOICES.READER)
+    author_id = Column(Integer, ForeignKey('authors.id'), nullable=True)
 
-    author = relationship('Author', back_populates='user', uselist=False, cascade='all, delete-orphan')
+    author = relationship('Author', back_populates='user', uselist=False, foreign_keys=[Author.user_username], cascade='all, delete-orphan')

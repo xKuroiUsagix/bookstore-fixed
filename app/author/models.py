@@ -8,7 +8,7 @@ class Author(Base):
     __tablename__ = 'authors'
 
     id = Column(Integer, primary_key=True)
-    user_username = Column(String, ForeignKey('users.username'))
+    user_username = Column(String, ForeignKey('users.username'), unique=True)
     bio = Column(Text, nullable=True)
 
     user = relationship('User', back_populates='author', foreign_keys=[user_username])
